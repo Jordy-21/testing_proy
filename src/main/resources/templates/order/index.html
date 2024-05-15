@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/head :: head">
+</head>
+<body>
+
+	<div class="container">
+		
+		<header th:replace="layout/header :: header"></header>
+	
+		<nav th:replace="layout/navbar :: nav"></nav>
+		
+		<main class="main">
+			<div
+				class="msg"
+				th:classappend="'msg--' + ${message.type.name}"
+				th:if="${message != null}">
+				<span th:text="${message.value}"></span>
+				<div class="msg__close"><i class="fas fa-2x fa-times-circle"></i></div>
+			</div>
+			<div class="card">
+				<h3 class="section-title">Lista de pedidos</h3>
+				<div class="flex">
+					<div>
+						<label for="btn-modal" class="btn btn--add">
+							Reservar mesa
+						</label>
+						<input type="checkbox" id="btn-modal" />
+						<div class="modal">
+							<div class="modal__header">
+								<h4>Mesa a ocupar</h4>
+								<label class="modal__shutdown" for="btn-modal">
+									<i class="fas fa-times-circle fa-2x"></i>
+								</label>
+							</div>
+							<div class="modal__body">
+								<form
+										th:action="@{/order/register}"
+										method="post"
+										th:object="${order}"
+										class="form">
+									<input
+											type="hidden"
+											th:field="*{idOrder}"
+											class="form__input"/>
+									<div class="form__field">
+										<label for="tableNumber">N° Mesa</label>
+										<input
+												type="number"
+												th:field="*{tableNumber}"
+												class="form__input"/>
+									</div>
+									<div class="btn__double">
+										<label for="btn-modal" class="btn btn--cancel">Cancelar</label>
+										<button type="submit" class="btn btn--add">Registrar</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="content">
+					<div>
+						<h4>Pedidos activos</h4>
+						<p th:if="${orders == null or orders.isEmpty()}">
+							No hay pedidos activas en este momento
+						</p>
+						<table th:replace="order/pedidos :: table-orders"></table>
+					</div>
+				</div>
+			</div>
+		</main>
+		<footer th:replace="layout/footer :: footer"></footer>
+	</div>
+	
+	<th:block th:insert="layout/scripts :: scripts"></th:block>
+	<script th:src="@{/js/order/index.js}"></script>
+</body>
+</html>

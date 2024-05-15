@@ -1,0 +1,85 @@
+/*:root {
+	--colorVerde: #00a160;
+	--colorRojo: #ee3124;
+	--colorAmarillo: #ffc425;
+	--colorOscuro: #383838;
+}*/
+
+.table {
+	border-collapse: collapse;
+	margin: 20px auto;
+}
+
+.table__head {
+	font-size: 20px;
+	padding: 5px;
+	color: white;
+	background-color: #383838;
+}
+
+.table tr {
+	transition: all 0.3s;
+}
+
+.table__body tr:hover {
+	background-color: #bbdcbe;
+}
+
+.table__body td, .table__body th {
+	border: 1px darkgray solid;
+	padding: 8px;
+	min-height: 40px;
+}
+
+.table th {
+	min-width: 60px;
+	padding: 15px;
+}
+
+@media (max-width: 375px) {
+	.table__head {
+		display: none;
+	}
+
+	.table {
+		font-size: 17px;
+	}
+
+	.table, .table__body, .table tr, .table td {
+		display: block;
+		width: 100%;
+	}
+
+	.table tr {
+		margin: 15px 0;
+		border: #383838 solid 2px;
+		border-radius: 5px;
+		box-sizing: border-box;
+	}
+
+	.table td {
+		box-sizing: border-box;
+		text-align: right;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		padding-left: 50%;
+		position: relative;
+	}
+
+	.table td:before {
+		content: attr(data-label);
+		position: absolute;
+		width: 30%;
+		text-align: left;
+		font-weight: 600;
+		left: 2px;
+	}
+
+	.table td[data-label="Acciones"] {
+		padding: unset;
+	}
+
+	.table td[data-label="Acciones"]:before {
+		content: unset;
+	}
+}

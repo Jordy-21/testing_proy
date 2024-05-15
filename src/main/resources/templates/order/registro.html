@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/head :: head">
+</head>
+<body>
+
+	<div class="container">
+	
+		<header th:replace="layout/header :: header"></header>
+	
+		<nav th:replace="layout/navbar :: nav"></nav>
+		
+		<main class="main">
+			<div class="card">
+				<h3 class="section-title" th:text="'Atención en la' + ${order.tableNumber}"></h3>
+				<div class="content">
+					<form
+							th:object="${orderDetail}"
+							th:action="@{/order/detail}"
+							method="post"
+							id="form-detail"
+							class="form">
+						<div>
+							<input
+									type="hidden"
+									name="idOrder"
+									th:value="${order.idOrder}">
+							<div class="form__field">
+								<label>Producto</label>
+								<select
+										type="number"
+										id="product"
+										name="idProduct"
+										class="form__input">
+									<option value="">--selecionar--</option>
+									<option
+											th:each="product: ${products}"
+											th:value="${product.idProduct}"
+											th:text="${product.name}"></option>
+								</select>
+							</div>
+							<div class="form__field">
+								<label for="quantity">Cantidad</label>
+								<input
+										type="number"
+										th:field="*{quantity}"
+										class="form__input"/>
+							</div>
+						</div>
+						<div class="width--100-mobile">
+							<button
+								type="submit"
+								class="btn lg btn--add">
+								<i class="fas fa-plus"></i>Agregar pedido
+							</button>
+							<a th:href="@{/order/finish/} + ${order.idOrder}"
+							   class="btn lg btn--cancel"
+							   id="finish-order" style="display: none">
+								<i class="fas fa-cart-arrow-down"></i>Finalizar pedido
+							</a>
+							<a th:href="@{/order/}"
+								class="btn lg btn--cancel">
+								<i class="fas fa-arrow-left"></i>Cancelar
+							</a>
+						</div>
+					</form>
+					<div>
+						<table th:replace="order/detalles-pedido :: table-detalles-pedido"></table>
+					</div>
+				</div>
+			</div>
+
+		</main>
+				
+		<footer th:replace="layout/footer :: footer"></footer>
+	</div>
+	
+	
+	<th:block th:replace="layout/scripts :: scripts"></th:block>
+	<script th:src="@{/js/product/data.js}"></script>
+	<script th:src="@{/js/order/data.js}"></script>
+	<script th:src="@{/js/order/main.js}"></script>
+</body>
+</html>

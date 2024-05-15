@@ -1,0 +1,40 @@
+<nav th:fragment="nav" class="nav">
+	
+	<h3 class="nav__title">
+		Menu
+		<br/>
+		<span  sec:authentication="principal.authorities"></span>
+	</h3>
+	<ul class="nav__list" id="nav-main-list">
+		<li class="nav__item">
+			<a th:href="@{/dashboard/}" class="nav__link">
+				<i class="fas fa-chart-line fa-2x"></i><span>Dashboard</span>
+			</a>
+		</li>
+		<li class="nav__item" sec:authorize="hasAuthority('ADMINISTRADOR')">
+			<a th:href="@{/user/}" class="nav__link">
+					<i class="fas fa-users fa-2x"></i><span>Gestionar usuarios</span>
+			</a>
+		</li>
+		<li class="nav__item">
+			<a th:href="@{/menu/}" class="nav__link">
+				<i class="fas fa-utensils fa-2x"></i><span>Actualizar carta</span>
+			</a>
+		</li>
+		<li class="nav__item">
+			<a th:href="@{/order/}" class="nav__link">
+				<i class="fas fa-clipboard fa-2x"></i><span>Gestionar comanda</span>
+			</a>
+		</li>
+		<li class="nav__item" sec:authorize="hasAnyAuthority('ADMINISTRADOR','CAJERO')">
+			<a th:href="@{/ticket/}" class="nav__link">
+				<i class="fas fa-money-bill-wave-alt fa-2x"></i></i><span>Emitir boleta</span>
+			</a>
+		</li>
+		<li class="nav__item" sec:authorize="hasAnyAuthority('ADMINISTRADOR','CAJERO')">
+			<a th:href="@{/report/}" class="nav__link">
+				<i class="fas fa-file-invoice-dollar fa-2x"></i><span>Emitir reporte</span>
+			</a>
+		</li>
+	</ul>
+</nav>
