@@ -29,7 +29,7 @@ public class ControllerReport {
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("orders",orderService.findByStatus(OrderStatus.PAGADO));
-        return "/report/index";
+        return "./report/index";
     }
 
     @GetMapping("/search")
@@ -49,6 +49,6 @@ public class ControllerReport {
         model.addAttribute("lowerDate",lowerDate);
         model.addAttribute("upperDate",upperDate);
         model.addAttribute("orders", orderService.listByDateReport(lowerDate, upperDate));
-        return "/report/index";
+        return "./report/index";
     }
 }

@@ -24,13 +24,13 @@ public class ControllerTicket {
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("orders", orderService.findByStatus(OrderStatus.ATENDIDO));
-        return "/ticket/index";
+        return "./ticket/index";
     }
 
     @GetMapping("/collect/{id}")
     public String collect(@PathVariable Long id, Model model) {
         model.addAttribute("order", orderService.findOne(id));
-        return "/ticket/collect";
+        return "./ticket/collect";
     }
 
     @GetMapping("/finish/{id}")
